@@ -1,4 +1,4 @@
-# qiscus-sdk-web-sample
+# Qiscus Web SDK Sample
 
 
 ### Install Qiscus SDK
