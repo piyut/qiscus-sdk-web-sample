@@ -69,4 +69,4 @@ You need to include this in your body file
 
 screen shot
 
-![alt tag](https://qiscuss3.s3.amazonaws.com/example@mail.com/xxx/20c4bf16cfba1a618a05084ffc2fb289/Screen+Shot+2016-09-13+at+2.48.26+PM.png)
+![alt tag](https://qiscuss3.s3.amazonaws.com/example@mail.com/xxx/311543ed845d72b45612c4b4d8f7f17d/Screen+Shot+2016-09-13+at+2.49.44+PM.png)
