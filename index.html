@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>qiscus-sdk-web</title>
+    <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css>
+    <link href="/static/css/app.da694bef1aab0552acaee3a04e2fe0e4.css" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Qiscus SDK Demo</h1>
+    <qiscus-widget></qiscus-widget>
+    <script type="text/javascript" src="/static/js/manifest.cf4734c83d46ac6cb1b0.js"></script>
+    <script type="text/javascript" src="/static/js/app.a7678d38869bc7542e14.js"></script>
+    <script>
+      // Let's initiate the SDK
+      qiscus.setUser('dragonfly', 'e2@qiscus.com', 'password', 'eeee2', "https://qiscuss3.s3.amazonaws.com/uploads/36976206a8b1fd2778938dbcd72b6624/qiscus-dp.png");
+      qiscus.init();
+      qiscus.setParticipants([
+        {username: 'fikri', email: 'fikri@qiscus.com'},
+        {username: 'uddin_penyok', email: 'apiep.test@gg.com'},
+        {username: 'evan3', email: 'e3@qiscus.com'},
+      ])
+      qiscusUI.chatWithTarget('evan')
+    </script>
+  </body>
+</html>
