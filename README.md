@@ -6,15 +6,15 @@
 installing Qiscus SDK is very easy, all you need is just add these lines in your html code/project
 
 css 
+
 ```
     <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css>
     <link href="http://DRAGONFLY.qiscus.com/css/qiscus.css" rel="stylesheet">
 
 ```
 
-and
-
 js
+
 ```
     <script type="text/javascript" src="http://DRAGONFLY.qiscus.com/js/manifest.qiscus.js"></script>
     <script type="text/javascript" src="http://DRAGONFLY.qiscus.com/js/app.qiscus.js"></script>
@@ -89,7 +89,7 @@ you just set up current user who is running the app and listing participants who
 </html>
 ```
 
-screen shot
+### Screen Shots
 
 ![alt tag](https://qiscuss3.s3.amazonaws.com/example@mail.com/xxx/311543ed845d72b45612c4b4d8f7f17d/Screen+Shot+2016-09-13+at+2.49.44+PM.png)
 
