@@ -25,8 +25,7 @@ js
 
 You need to include this in your body file to initiate Qiscus.
 
-In this Sample App, we are going to create APP with : 
-
+In this Sample App, we are going to initiate Qiscus SDK by adding this line in our code 
 
 
 ```
@@ -42,6 +41,8 @@ In this Sample App, we are going to create APP with :
     
 ```
 
+
+in sample code, it will look like this : 
 
 ```
 
