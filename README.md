@@ -27,11 +27,21 @@ You need to include this in your body file to initiate Qiscus.
 
 In this Sample App, we are going to create APP with : 
 
-APP_ID = DRAGONFLY (this APP_ID is depend on your account APP_ID once you get the account from Qiscus Sales)
-and set the current user evan@qiscus.com (you can create with whatever Email you like)
-and set the password as password (you can create with whatever Password you like)
-and set the username as Evan (you can create with whatever Username you like)
-and set the avatar_url as https://qiscuss3.s3.amazonaws.com/uploads/36976206a8b1fd2778938dbcd72b6624/qiscus-dp.png (you can create with whatever image url you like)
+
+
+```
+    <script>
+      // Let's initiate the SDK
+      qiscus.setUser(APP_ID, CURRENT_USER_EMAIL, CURRENT_USER_KEY, CURRENT_USER_USERNAME, CURRENT_USER_AVATAR_URL);
+      qiscus.init();
+      qiscus.setParticipants([
+        {username: CS 1 NAME, email: CS EMAIL 1},
+        {username: CS 2 NAME, email: CS EMAIL 2}
+      ])
+    </script>
+    
+```
+
 
 ```
 
