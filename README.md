@@ -33,10 +33,6 @@ In this Sample App, we are going to initiate Qiscus SDK by adding this line in o
       // Let's initiate the SDK
       qiscus.setUser(APP_ID, CURRENT_USER_EMAIL, CURRENT_USER_KEY, CURRENT_USER_USERNAME, CURRENT_USER_AVATAR_URL);
       qiscus.init();
-      qiscus.setParticipants([
-        {username: CS 1 NAME, email: CS EMAIL 1},
-        {username: CS 2 NAME, email: CS EMAIL 2}
-      ])
     </script>
     
 ```
