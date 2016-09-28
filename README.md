@@ -89,6 +89,9 @@ sample :
 vStore.dispatch('CHAT_TARGET', 'e14@qiscus.com')
 ```
 
+further information if you want to see codebase of the qiscus web SDK, you can go to :
+https://github.com/qiscus/qiscus-sdk-web
+
 ### Screen Shots
 
 
