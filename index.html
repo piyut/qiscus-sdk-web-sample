@@ -3,16 +3,50 @@
 <head>
   <meta charset=utf-8>
   <title>qiscus-sdk-web</title>
-  <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css>
-  <link href="/static/css/app.da694bef1aab0552acaee3a04e2fe0e4.css" rel="stylesheet"></head>
-  <body>
-    <h1>Qiscus SDK Demo</h1>
-    <qiscus-widget></qiscus-widget>
-    <script type="text/javascript" src="/static/js/manifest.cf4734c83d46ac6cb1b0.js"></script>
-    <script type="text/javascript" src="/static/js/app.5a747c7992011baf5744.js"></script>
-    <script>
-    qiscus.setUser('dragonfly', 'e2@qiscus.com', 'password', 'Evan 2');
-    qiscus.init();
-    </script>
-  </body>
+  <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css> <script src=https://code.jquery.com/jquery-3.1.1.slim.min.js integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
+    crossorigin=anonymous></script>
+  <style>
+    *, *:before, *:after { box-sizing: border-box; }
+    body { font-family: sans-serif; color: #444; margin: 0 auto; padding: 0; background: #95a5a6; }
+    .header h1 { background: #FFF; width: 100%; padding: 20px; box-shadow: 0 2px 15px rgba(0, 0, 0, .3); text-align: center; margin: 0; }
+    .content { max-width: 50%; background: #FFF; margin: 20px auto; padding: 10px; border-radius: 5px; }
+    .participants { list-style: none; padding: 0; }
+    .participants li { border-bottom: 1px dotted #ccc; padding: 10px; overflow: hidden; cursor: pointer; position: relative; }
+    .participant--avatar { float: left; width: 30px; height: 30px; background: #ddd; border-radius: 50%; }
+    .participant--info { float: right; width: calc(100% - 40px); }
+    .participant--info strong { display: block; }
+    .participant--info i.fa { font-size: 24px; position: absolute; top: 10px; right: 10px; }
+  </style>
+  <link href="/static/css/app.7544399ac8d474b3d35418a4d9b41b6c.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id=container>
+    <div class=header>
+      <h1>Qiscus SDK Demo</h1>
+    </div>
+    <div class=content>
+      <ul class=participants>
+        <li data-email=fikri@qiscus.com>
+          <div class=participant--avatar></div>
+          <div class=participant--info> <strong>Rijalul Fikri</strong> <small>fikri@qiscus.com</small> <i class="fa fa-comments"></i> </div>
+        </li>
+        <li data-email=e@qiscus.com>
+          <div class=participant--avatar></div>
+          <div class=participant--info> <strong>Evan Purnama</strong> <small>e@qiscus.com</small> <i class="fa fa-comments"></i> </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <qiscus-widget></qiscus-widget> 
+  <script> 
+    $(function(){
+      $('.participants li').on('click', function(){
+        vStore.dispatch('CHAT_TARGET', $(this).data('email'));
+      });
+    })
+  </script>
+  <script type="text/javascript" src="/static/js/manifest.cf4734c83d46ac6cb1b0.js"></script><script type="text/javascript"
+    src="/static/js/app.a447bb9b90d589ed6e33.js"></script>
+</body>
 </html>
