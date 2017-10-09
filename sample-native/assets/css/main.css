@@ -1,0 +1,21 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  font-family: sans-serif;
+  background: #f0f0f0;
+  position: relative;
+  display: flex;
+}
+body:before {
+  content: '';
+  width: 100%;
+  background: #f2c94c;
+  height: 30%;
+  position: absolute;
+  top: 0; left: 0;
+}
