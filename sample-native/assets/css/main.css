@@ -75,6 +75,18 @@ body:before {
 .app-sidebar__lists ul {
   list-style: none;
 }
+.app-sidebar__lists::-webkit-scrollbar {
+  width: 9px; background-color: #ddd;
+  opacity: 0.3;
+ }
+.app-sidebar__lists:hover {
+  transition: opacity 0.32s ease;
+  opacity: 1;
+}
+ .app-sidebar__lists::-webkit-scrollbar-thumb {
+  border-radius: 10px; -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);	
+  background-color: #4db6ac;
+ }
 .app-sidebar__lists li {
   display: flex;
   justify-content: flex-start;
@@ -84,7 +96,7 @@ body:before {
   cursor: pointer;
   transition: all .32s ease;
 }
-.app-sidebar__lists li:hover {
+.app-sidebar__lists li:hover, .app-sidebar__lists li.active {
   background: rgba(255,255,255,.10);
 }
 .app-sidebar__lists li img {
@@ -123,6 +135,7 @@ body:before {
   text-shadow: none;
   box-shadow: 0 0 17px rgba(0,0,0,.15);
   padding-left: 81px;
+  flex: 0 0 64px;
 }
 .sdk-wrapper .isTypingText {
   position: relative;
@@ -164,4 +177,45 @@ body:before {
 }
 .sdk-wrapper .qcw-comment__state {
   display: none;
+}
+.sdk-wrapper .qcw-comment.comment--last {
+  margin-bottom: 24px;
+}
+.sdk-wrapper .widget-chat-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.sdk-wrapper .qcw-comment-form {
+  flex: 0 0 55px;
+  margin: 0 10%;
+}
+.sdk-wrapper .qcw-comment-form textarea {
+  border-bottom: 1px solid #c4c4c4;
+  padding: 0;
+}
+.sdk-wrapper .qcw-comment-form .qcw-form-actions {
+  bottom: 5px;
+  top: auto;
+}
+.sdk-wrapper .reply-wrapper {
+  background: #f2f2f2;
+}
+.sdk-wrapper .reply-wrapper:after {
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+.sdk-wrapper .reply-wrapper:before {
+  content: "\"";
+  position: absolute;
+  color: rgba(0,0,0,.05);
+  font-size: 70px;
+  top: 22px;
+  right: 14px;
+  font-style: oblique;
+  font-family: serif;
+}
+.sdk-wrapper .qcw-goto-bottom i {
+  top: 6px;
+  position: relative;
 }
