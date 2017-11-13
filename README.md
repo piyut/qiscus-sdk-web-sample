@@ -36,5 +36,10 @@ $ npm install http-server -g
 $ cd qiscus-sdk-web-sample/sample-default
 $ http-server
 ```
-There are 3 folders inside Web SDK Sample App: sample-default,
-sample-native, sample-customized
+> There are 3 folders inside Web SDK Sample App: sample-default,
+> sample-native, sample-customized
+
+> Sample default ilustrate the basic usage using Qiscus Chat UI default,
+> Sample customized to understand how to customize Qiscus Chat SDK and
+> Sample Native is a fully-functional whatsapp-like app to help you
+> figure out advance cases can be done in Qiscus Chat SDK
