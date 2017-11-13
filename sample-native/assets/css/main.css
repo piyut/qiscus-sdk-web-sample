@@ -55,12 +55,13 @@ body:before {
   width: 36px; height: 36px;
   overflow: hidden;
   border-radius: 50%;
+  object-fit: cover;
 }
 .app-sidebar__myinfo {
   flex: 1 1 100%;
   padding-left: 15px;
   color: #FFF;
-} 
+}
 .app-sidebar__myinfo div {
   font-size: 18px;
 }
@@ -84,7 +85,7 @@ body:before {
   opacity: 1;
 }
  .app-sidebar__lists::-webkit-scrollbar-thumb {
-  border-radius: 10px; -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);	
+  border-radius: 10px; -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);
   background-color: #4db6ac;
  }
 .app-sidebar__lists li {
@@ -104,6 +105,7 @@ body:before {
   overflow: hidden;
   flex: 0 0 50px;
   margin-right: 20px;
+  object-fit: cover;
 }
 .app-sidebar__lists div > strong {
   display: block;
@@ -145,8 +147,9 @@ body:before {
 .sdk-wrapper .qcw-room-avatar {
   width: 50px; height: 50px;
   max-width: initial; max-height: initial;
-  left: 15px; 
+  left: 15px;
   margin-left: 0;
+  object-fit: cover;
 }
 .sdk-wrapper .qcw-comment__message {
   background: transparent;
@@ -161,6 +164,9 @@ body:before {
 .sdk-wrapper .qcw-comment .qcw-avatar {
   order: 1;
   margin-left: 0;
+}
+.sdk-wrapper .qcw-comment .qcw-avatar img {
+  object-fit: cover;
 }
 .sdk-wrapper .qcw-comment {
   justify-content: center;
