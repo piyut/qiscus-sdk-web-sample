@@ -68,6 +68,44 @@ body:before {
 .app-sidebar__myinfo span {
   font-size: 12px;
 }
+.app-sidebar__search {
+  display: flex;
+  position: relative;
+  height: 36px;
+  width: 268px;
+  margin: 0 auto;
+  border-radius: 14px;
+}
+.app-sidebar__search input {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border: 0;
+  border-radius: inherit;
+  padding-left: 46px;
+  padding-right: 10px;
+}
+.app-sidebar__search input:focus {
+  outline:none;
+}
+.app-sidebar__search__icon {
+  background-image: url(/assets/img/icon-search.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 15px;
+
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  z-index: 1;
+
+  height: 16px;
+  width: 16px;
+}
+.app-sidebar__search__icon.focus {
+  background-image: url(/assets/img/icon-search-green.svg);
+}
 .app-sidebar__lists {
   flex: 1 1 100%;
   overflow: hidden;

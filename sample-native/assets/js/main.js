@@ -7,14 +7,14 @@ $(function(){
     options: {
       // When we're success login into qiscus SDK we'll have a 1-on-1 chat to guest2@qiscus.com
       // You can change this to any user you have on your AppId, e.g: contact@your_company.com, etc
-      loginSuccessCallback(data) { 
-        // QiscusSDK.core.UI.chatTarget('guest2@qiscus.com') 
+      loginSuccessCallback(data) {
+        // QiscusSDK.core.UI.chatTarget('guest2@qiscus.com')
         // load Room List
         loadRoomList();
 
         // Join Qiscus AOV Room
         // QiscusSDK.core.getOrCreateRoomByUniqueId('Qiscus AOV');
-        
+
         // Display UI in sidebar
         renderSidebarHeader();
       },
@@ -35,13 +35,32 @@ $(function(){
   function loadRoomList() {
     QiscusSDK.core.loadRoomList()
     .then(function(rooms) {
-      var lists = '';
-      rooms.forEach(function(room){
-        var avatar = '<img class="room-avatar" src="'+room.avatar+'" width="48" height="48">';
-        lists = lists + '<li data-id="'+room.id+'" id="room-'+room.id+'">'+avatar+'<div><strong>'+room.name+'</strong><span>'+room.last_comment_message+'</span></div></li>'
+      // var lists = '';
+      var lists = rooms.map(function(room){
+        // var avatar = '<img class="room-avatar" src="'+room.avatar+'" width="48" height="48">';
+        // lists = lists + '<li data-id="'+room.id+'" id="room-'+room.id+'">'+avatar+'<div><strong>'+room.name+'</strong><span>'+room.last_comment_message+'</span></div></li>'
+        var avatar = document.createElement('img')
+        avatar.classList.add('room-avatar')
+        avatar.setAttribute('src', room.avatar)
+        avatar.setAttribute('width', 48)
+        avatar.setAttribute('height', 48)
+        var li = document.createElement('li')
+        li.setAttribute('data-id', room.id)
+        li.setAttribute('id', 'room-' + room.id)
+        var detail = document.createElement('div')
+        var name = document.createElement('strong')
+        name.innerText = room.name
+        var lastComment = document.createElement('span')
+        lastComment.innerText = room.last_comment_message
+        detail.appendChild(name)
+        detail.appendChild(lastComment)
+        li.appendChild(avatar)
+        li.appendChild(detail)
+        return li
       })
       // $('.app-sidebar__lists ul').html(lists);
-      appSidebar.find('ul').html(lists);
+      // appSidebar.find('ul').html(lists);
+      appSidebar.find('ul').empty().append(lists)
       toggleConversationActiveClass();
     });
   }
@@ -67,4 +86,12 @@ $(function(){
     appSidebar.find('li').removeClass('active');
     appSidebar.find('li#room-'+QiscusSDK.core.selected.id).addClass('active');
   }
+
+  $('#input-search-room')
+    .on('focus', function () {
+      $('.app-sidebar__search__icon').addClass('focus')
+    })
+    .on('blur', function () {
+      $('.app-sidebar__search__icon').removeClass('focus');
+    })
 })
