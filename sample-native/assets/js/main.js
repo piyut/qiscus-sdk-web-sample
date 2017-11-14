@@ -47,6 +47,7 @@ $(function(){
         var li = document.createElement('li')
         li.setAttribute('data-id', room.id)
         li.setAttribute('id', 'room-' + room.id)
+        li.setAttribute('data-room-name', room.name)
         var detail = document.createElement('div')
         var name = document.createElement('strong')
         name.innerText = room.name
@@ -94,4 +95,22 @@ $(function(){
     .on('blur', function () {
       $('.app-sidebar__search__icon').removeClass('focus');
     })
+    .on('keyup', _.debounce(function () {
+      var value = this.value
+      var foundRoom = appSidebar.find('li')
+        .toArray()
+        .map(function (item) {
+          if ($(item).hasClass('hidden')) {
+            $(item).removeClass('hidden')
+          }
+          return item
+        })
+        .filter(function (item) {
+          var roomName = $(item).attr('data-room-name')
+          return roomName.toLowerCase().indexOf(value) < 0
+        })
+        .forEach(function (item) {
+          $(item).addClass('hidden')
+        })
+    }, 400))
 })

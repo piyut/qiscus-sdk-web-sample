@@ -135,6 +135,9 @@ body:before {
   cursor: pointer;
   transition: all .32s ease;
 }
+.app-sidebar__lists li.hidden {
+  display: none;
+}
 .app-sidebar__lists li:hover, .app-sidebar__lists li.active {
   background: rgba(255,255,255,.10);
 }
