@@ -11,7 +11,7 @@ $(function () {
   attachClickListenerOnConversation()
   // let's setup options for our widget
   QiscusSDK.core.init({
-    AppId: 'sdksample',
+    AppId: window.SDK_APP_ID,
     mode: 'wide',
     options: {
       // When we're success login into qiscus SDK we'll have a 1-on-1 chat to guest2@qiscus.com
