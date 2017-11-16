@@ -1,5 +1,7 @@
 ## Qiscus Chat SDK Web Sample Apps
 
+![Sample App](readme/intro01.png)
+
 To understand Qiscus Chat SDK easier, we provide some Sample Apps. Inside
 these samples, you can see our how Qiscus Chat SDK can power your app. You
 can directly try some default feature or UI customization. To start with the
