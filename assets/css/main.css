@@ -89,6 +89,9 @@ body:before {
 }
 .app-sidebar__myinfo div {
   font-size: 18px;
+  max-width: 125px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .app-sidebar__myinfo span {
   font-size: 12px;
