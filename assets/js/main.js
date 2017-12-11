@@ -20,10 +20,10 @@ $(function () {
         // QiscusSDK.core.UI.chatTarget('guest2@qiscus.com')
         // load Room List
         loadRoomList()
-        
+
         // Join Qiscus AOV Room
         // QiscusSDK.core.getOrCreateRoomByUniqueId('Qiscus AOV');
-        
+
         // Display UI in sidebar
         renderSidebarHeader()
       },
@@ -40,30 +40,30 @@ $(function () {
   QiscusSDK.core.setUser(userData.userId, userData.secret, userData.username)
   // render the widget
   QiscusSDK.render()
-  
+
   var appSidebar = $('.app-sidebar__lists')
-  
-  function loadRoomList () {
+
+  function loadRoomList() {
     QiscusSDK.core.loadRoomList()
-    .then(function (rooms) {
-      // var lists = '';
-      var lists = rooms.map(function (room) {
-        return createRoomDOM(room)
-      })
-      // $('.app-sidebar__lists ul').html(lists);
-      // appSidebar.find('ul').html(lists);
-      appSidebar.find('ul').empty().append(lists)
-      toggleConversationActiveClass()
-    })
+        .then(function (rooms) {
+          // var lists = '';
+          var lists = rooms.map(function (room) {
+            return createRoomDOM(room)
+          })
+          // $('.app-sidebar__lists ul').html(lists);
+          // appSidebar.find('ul').html(lists);
+          appSidebar.find('ul').empty().append(lists)
+          toggleConversationActiveClass()
+        })
   }
-  
-  function renderSidebarHeader () {
+
+  function renderSidebarHeader() {
     $('.app-sidebar__header img').attr('src', QiscusSDK.core.userData.avatar_url)
     $('.app-sidebar__myinfo div').html(QiscusSDK.core.userData.username)
     $('.app-sidebar__myinfo span').html('Online')
   }
-  
-  function attachClickListenerOnConversation () {
+
+  function attachClickListenerOnConversation() {
     $('.app-sidebar__lists').on('click', 'li', function () {
       var $this = $(this)
       $('.app-sidebar__lists li').removeClass('active')
@@ -73,14 +73,14 @@ $(function () {
       $('#empty-chat-wrapper').addClass('hidden')
     })
   }
-  
-  function toggleConversationActiveClass () {
+
+  function toggleConversationActiveClass() {
     if (!QiscusSDK.core.selected) return
     appSidebar.find('li').removeClass('active')
     appSidebar.find('li#room-' + QiscusSDK.core.selected.id).addClass('active')
   }
-  
-  function createRoomDOM (room) {
+
+  function createRoomDOM(room) {
     var avatar = document.createElement('img')
     avatar.classList.add('room-avatar')
     avatar.setAttribute('src', room.avatar)
@@ -101,33 +101,33 @@ $(function () {
     li.appendChild(detail)
     return li
   }
-  
+
   $('#input-search-room')
-  .on('focus', function () {
-    $('.app-sidebar__search__icon').addClass('focus')
-  })
-  .on('blur', function () {
-    $('.app-sidebar__search__icon').removeClass('focus')
-  })
-  .on('keyup', _.debounce(function () {
-    var value = this.value
-    appSidebar.find('li')
-    .toArray()
-    .map(function (item) {
-      if ($(item).hasClass('hidden')) {
-        $(item).removeClass('hidden')
-      }
-      return item
-    })
-    .filter(function (item) {
-      var roomName = $(item).attr('data-room-name')
-      return roomName.toLowerCase().indexOf(value) < 0
-    })
-    .forEach(function (item) {
-      $(item).addClass('hidden')
-    })
-  }, 400))
-  
+      .on('focus', function () {
+        $('.app-sidebar__search__icon').addClass('focus')
+      })
+      .on('blur', function () {
+        $('.app-sidebar__search__icon').removeClass('focus')
+      })
+      .on('keyup', _.debounce(function () {
+        var value = this.value
+        appSidebar.find('li')
+            .toArray()
+            .map(function (item) {
+              if ($(item).hasClass('hidden')) {
+                $(item).removeClass('hidden')
+              }
+              return item
+            })
+            .filter(function (item) {
+              var roomName = $(item).attr('data-room-name')
+              return roomName.toLowerCase().indexOf(value) < 0
+            })
+            .forEach(function (item) {
+              $(item).addClass('hidden')
+            })
+      }, 400))
+
   var $sidebarChatStranger = $('.app-sidebar.chat-stranger')
   $('#chat-with-stranger-btn').on('click', function (event) {
     event.preventDefault()
@@ -140,13 +140,13 @@ $(function () {
     sidebarChatStranger.find('input').val('')
   })
   $sidebarChatStranger
-  .find('form')
-  .on('submit', function (event) {
-    event.preventDefault()
-    var target = event.target['uniqueId'].value
-    QiscusSDK.core.UI.chatTarget(target)
-    return false
-  })
+      .find('form')
+      .on('submit', function (event) {
+        event.preventDefault()
+        var target = event.target['uniqueId'].value
+        QiscusSDK.core.UI.chatTarget(target)
+        return false
+      })
   $sidebarChatStranger.on('keydown', 'input', function (event) {
     if (event.keyCode === 13) {
       event.preventDefault()
@@ -154,7 +154,7 @@ $(function () {
       QiscusSDK.core.UI.chatTarget(value)
     }
   })
-  
+
   var $showContactListBtn = $('#show-contact-list')
   var $sidebarContactList = $('.app-sidebar.contact-list')
   $showContactListBtn.on('click', function (event) {
@@ -163,13 +163,13 @@ $(function () {
     return false
   })
   $sidebarContactList
-    .find('#hide-contact-list-btn')
-    .on('click', function (event) {
-      event.preventDefault()
-      $sidebarContactList.addClass('hidden')
-      return false
-    })
-  
+      .find('#hide-contact-list-btn')
+      .on('click', function (event) {
+        event.preventDefault()
+        $sidebarContactList.addClass('hidden')
+        return false
+      })
+
   var $menuBtn = $('#menu-btn')
   var $popOver = $('.popover-menu')
   $popOver.on('click', 'a', function () {
@@ -180,7 +180,7 @@ $(function () {
     $popOver.toggleClass('hidden')
     return false
   })
-  
+
   var $logoutBtn = $('#logout-btn')
   $logoutBtn.on('click', function (event) {
     event.preventDefault()
@@ -188,32 +188,34 @@ $(function () {
     window.location.reload()
     return false
   })
-  
+
   $('.contact-list-container').on('click', '.contact-item', function (event) {
     var target = $(this).data('user-email')
     QiscusSDK.core.UI.chatTarget(target)
     $('#empty-chat-wrapper').addClass('hidden')
   })
-  
+
   // TODO: Contact list
   $.ajax({
-    url: 'http://dashboard-sample.herokuapp.com/api/contacts',
-    method: 'get'
-  })
-  .done(function (data) {
-    var contacts = data.results.users
-    var contactDOM = contacts.map(createContactDOM)
-    $('ul.contact-list').empty().append(contactDOM)
-  })
-  .fail(function (error) { console.error('error when fetching contact list', error) })
-  
-  function createContactDOM (contactData) {
+        url: 'http://dashboard-sample.herokuapp.com/api/contacts',
+        method: 'get'
+      })
+      .done(function (data) {
+        var contacts = data.results.users
+        var contactDOM = contacts.map(createContactDOM)
+        $('ul.contact-list').empty().append(contactDOM)
+      })
+      .fail(function (error) {
+        console.error('error when fetching contact list', error)
+      })
+
+  function createContactDOM(contactData) {
     var container = document.createElement('li')
     var avatar = document.createElement('img')
     var detailContainer = document.createElement('div')
     var name = document.createElement('span')
     var onlineStatus = document.createElement('span')
-    
+
     container.classList.add('contact-item')
     container.setAttribute('data-room-id', contactData.id)
     container.setAttribute('data-user-email', contactData.email)
@@ -225,13 +227,13 @@ $(function () {
     name.innerText = contactData.name
     onlineStatus.classList.add('online-status')
     onlineStatus.innerText = 'online'
-    
+
     detailContainer.appendChild(name)
     detailContainer.appendChild(onlineStatus)
     container.appendChild(avatar)
     container.appendChild(detailContainer)
-    
+
     return container
   }
-  
+
 })
