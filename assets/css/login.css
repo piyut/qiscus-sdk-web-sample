@@ -6,7 +6,8 @@ html, body {
   padding: 0;
   font-family: 'Open sans', sans-serif;
   background: #2ACB6E;
-  overflow:hidden;
+  overflow-x:hidden;
+  max-height: 100vh;
   color:white;
 }
 .wrapper {
