@@ -216,12 +216,16 @@ $(function () {
     $('#empty-chat-wrapper').addClass('hidden');
   });
 
+  // Load contact
   $.ajax({
         url: 'http://dashboard-sample.herokuapp.com/api/contacts',
         method: 'get'
       })
       .done(function (data) {
-        var contacts = data.results.users;
+        var contacts = data.results.users
+            .filter(function (user) {
+              return user.email !== QiscusSDK.core.email;
+            });
         var contactDOM = contacts.map(createContactDOM);
         $('ul.contact-list').empty().append(contactDOM);
       })
