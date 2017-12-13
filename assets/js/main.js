@@ -27,6 +27,9 @@ $(function () {
         // Display UI in sidebar
         renderSidebarHeader();
       },
+      newMessagesCallback: function () {
+        loadRoomList();
+      },
       chatRoomCreatedCallback: function (data) {
         console.log('chatRoomCreated', data);
         var room = createRoomDOM(data.room);
