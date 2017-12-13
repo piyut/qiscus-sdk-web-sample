@@ -2,11 +2,8 @@
 
 ![Sample App](readme/intro01.png)
 
-To understand Qiscus Chat SDK easier, we provide some Sample Apps. Inside
-these samples, you can see our how Qiscus Chat SDK can power your app. You
-can directly try some default feature or UI customization. To start with the
-sample apps, you can clone from repository or try the live sample online via
-codepen.
+To understand Qiscus Chat SDK easier, we provide you Sample Apps. Inside
+this sample app, you can see how Qiscus Chat SDK can power your app.
 
 ## Requirement
 
@@ -15,8 +12,8 @@ used to clone the repository so you can play around with the code locally.
 NodeJS is needed to install and resolve dependencies to run the Sample App. You
 can refer to their respected page for more detail installing them both.
 
-[git-scm.com](http://git-scm.com)
-[nodejs.org](http://nodejs.org)
+* [git-scm.com](http://git-scm.com)
+* [nodejs.org](http://nodejs.org)
 
 ## Cloning Sample App
 You can download sample directly from our github at
