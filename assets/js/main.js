@@ -1,5 +1,12 @@
 /* global QiscusSDK, $, _ */
 $(function () {
+  var appSidebar = $('.app-sidebar__lists');
+  var $createGroupSidebar = $('.app-sidebar.create-group');
+  var $mainSidebar = $('.app-sidebar.main');
+  var $createGroupNameSidebar = $('.app-sidebar.create-group-name');
+  var $contactListSidebar = $('.app-sidebar.contact-list');
+  var $chatStrangerSidebar = $('.app-sidebar.chat-stranger');
+
   var isLoggedIn = window.sessionStorage.getItem('sdk-sample-app---is-loggedin');
   var userData = null;
   if (!isLoggedIn || Boolean(isLoggedIn) !== true) {
@@ -30,6 +37,23 @@ $(function () {
       newMessagesCallback: function () {
         loadRoomList();
       },
+      groupRoomCreatedCallback: function (data) {
+        // Success creating group,
+        // Reload room list
+        loadRoomList();
+        // Clear all selected target,
+        $createGroupSidebar.find('.selected-participant-list').empty();
+        $createGroupSidebar.find('.contact-item').removeClass('selected');
+        // Hide all creating group sidebar,
+        $createGroupSidebar.addClass('hidden');
+        $createGroupNameSidebar.addClass('hidden');
+        // Unhide main sidebar
+        $mainSidebar.removeClass('hidden');
+        // Open group room
+        QiscusSDK.core.UI.chatGroup(data.id);
+        // Hide empty state for the main view
+        $('#empty-chat-wrapper').addClass('hidden');
+      },
       chatRoomCreatedCallback: function (data) {
         console.log('chatRoomCreated', data);
         var room = createRoomDOM(data.room);
@@ -44,17 +68,13 @@ $(function () {
   // render the widget
   QiscusSDK.render();
 
-  var appSidebar = $('.app-sidebar__lists');
 
   function loadRoomList() {
     QiscusSDK.core.loadRoomList()
         .then(function (rooms) {
-          // var lists = '';
           var lists = rooms.map(function (room) {
             return createRoomDOM(room);
           });
-          // $('.app-sidebar__lists ul').html(lists);
-          // appSidebar.find('ul').html(lists);
           appSidebar.find('ul').empty().append(lists);
           toggleConversationActiveClass();
         })
@@ -124,7 +144,7 @@ $(function () {
             .forEach(function (item) {
               $(item).addClass('hidden');
             });
-      }, 400));
+      }, 100));
 
   $('#input-search-room')
       .on('focus', function () {
@@ -150,20 +170,18 @@ $(function () {
             .forEach(function (item) {
               $(item).addClass('hidden');
             })
-      }, 400));
+      }, 100));
 
-  var $sidebarChatStranger = $('.app-sidebar.chat-stranger');
   $('#chat-with-stranger-btn').on('click', function (event) {
     event.preventDefault();
-    $sidebarChatStranger.removeClass('hidden');
+    $chatStrangerSidebar.removeClass('hidden');
   });
-  $sidebarChatStranger.on('click', '.navigation-btn', function (event) {
+  $chatStrangerSidebar.on('click', '.navigation-btn', function (event) {
     event.preventDefault();
-    var sidebarChatStranger = $('.app-sidebar.chat-stranger');
-    sidebarChatStranger.addClass('hidden');
-    sidebarChatStranger.find('input').val('');
+    $chatStrangerSidebar.addClass('hidden');
+    $chatStrangerSidebar.find('input').val('');
   });
-  $sidebarChatStranger
+  $chatStrangerSidebar
       .find('form')
       .on('submit', function (event) {
         event.preventDefault();
@@ -171,7 +189,7 @@ $(function () {
         QiscusSDK.core.UI.chatTarget(target);
         return false;
       });
-  $sidebarChatStranger.on('keydown', 'input', function (event) {
+  $chatStrangerSidebar.on('keydown', 'input', function (event) {
     if (event.keyCode === 13) {
       event.preventDefault();
       var value = event.target.value;
@@ -180,17 +198,16 @@ $(function () {
   });
 
   var $showContactListBtn = $('#show-contact-list');
-  var $sidebarContactList = $('.app-sidebar.contact-list');
   $showContactListBtn.on('click', function (event) {
     event.preventDefault();
-    $sidebarContactList.removeClass('hidden');
+    $contactListSidebar.removeClass('hidden');
     return false;
   });
-  $sidebarContactList
+  $contactListSidebar
       .find('#hide-contact-list-btn')
       .on('click', function (event) {
         event.preventDefault();
-        $sidebarContactList.addClass('hidden');
+        $contactListSidebar.addClass('hidden');
         return false;
       });
 
@@ -213,7 +230,7 @@ $(function () {
     return false;
   });
 
-  $('.contact-list-container').on('click', '.contact-item', function (event) {
+  $contactListSidebar.on('click', '.contact-item', function (event) {
     var target = $(this).data('user-email');
     QiscusSDK.core.UI.chatTarget(target);
     $('#empty-chat-wrapper').addClass('hidden');
@@ -263,4 +280,134 @@ $(function () {
     return container;
   }
 
+  function createSelectedDataDOM (userData) {
+    var $li = $(document.createElement('li'));
+    var $removeButton = $(document.createElement('button'));
+    var $removeButtonIcon = $(document.createElement('img'));
+    var $avatar = $(document.createElement('img'));
+
+    $li.addClass('selected-participant-item');
+    $removeButton.addClass('remove-participant-button');
+    $removeButtonIcon.addClass('remove-participant');
+    $avatar.addClass('participant-avatar');
+
+    $li.attr('data-user-email', userData.email);
+    $li.attr('data-user-id', userData.id);
+    $li.attr('data-user-name', userData.name);
+    $removeButtonIcon.attr('src', '/assets/img/icon-remove-participant.svg');
+    $avatar.attr('src', userData.avatar);
+
+    $removeButton.append($removeButtonIcon);
+    $li.append($removeButton);
+    $li.append($avatar);
+    return $li;
+  }
+  var $selectedParticipantList = $('.create-group .selected-participant-list');
+  var $createGroupContactList = $('.create-group .contact-list');
+  $createGroupContactList.on('click', '.contact-item', function (event) {
+    var $this = $(this);
+    $this.toggleClass('selected');
+    var userId = $this.data('room-id');
+    if ($this.hasClass('selected')) {
+      var userData = {
+        id: userId,
+        name: $this.data('user-name'),
+        email: $this.data('user-email'),
+        avatar: $this.find('img').attr('src')
+      };
+      var $selectedUserDOM = createSelectedDataDOM(userData);
+      $selectedParticipantList.append($selectedUserDOM);
+    } else {
+      // Remove from selected participant list
+      $selectedParticipantList.find('li[data-user-id=' + userId + ']')
+          .remove();
+    }
+    calculateSelectedParticipantChange();
+    return false
+  });
+  $('#create-group-search-contact-input')
+      .on('keyup', _.debounce(function () {
+        var value = $(this).val();
+        $createGroupContactList
+            .find('li.contact-item')
+            .toArray()
+            .map(function (item) {
+              if ($(item).hasClass('hidden')) $(item).removeClass('hidden');
+              return item;
+            })
+            .filter(function (item) {
+              var userName = $(item).attr('data-user-name');
+              return userName.toLowerCase().indexOf(value) < 0;
+            })
+            .forEach(function (item) {
+              $(item).addClass('hidden');
+            })
+      }, 100));
+  var $createGroupNextBtn = $createGroupSidebar.find('.next-button');
+  function calculateSelectedParticipantChange () {
+    var hasChild = $selectedParticipantList.children().length > 0;
+    if (hasChild) {
+      $selectedParticipantList.parent().removeClass('hidden');
+      $createGroupNextBtn.removeClass('hidden');
+    } else {
+      $selectedParticipantList.parent().addClass('hidden');
+      $createGroupNextBtn.addClass('hidden');
+    }
+  }
+  $createGroupNextBtn.on('click', function () {
+    $createGroupNameSidebar.removeClass('hidden');
+    $createGroupSidebar.addClass('hidden');
+    return false;
+  });
+  $selectedParticipantList.on('click', '.remove-participant-button', function () {
+    var $parent = $(this).parent();
+    var userId = $parent.data('user-id');
+    var $selectedItem = $createGroupSidebar.find('li.contact-item[data-room-id=' + userId + ']');
+    $selectedItem.removeClass('selected');
+    $parent.remove();
+    calculateSelectedParticipantChange();
+    return false;
+  });
+  var $groupNameInput = $createGroupNameSidebar.find('input.group-name-input');
+  var $groupNameNextBtn = $createGroupNameSidebar.find('button.next-button');
+  $groupNameInput.on('keyup', _.debounce(function (event) {
+    var $this = $(this);
+    var value = $this.val();
+    if (value.length >= 5) {
+      $groupNameNextBtn.removeClass('hidden');
+    } else {
+      $groupNameNextBtn.addClass('hidden');
+    }
+  }, 100));
+  $groupNameNextBtn.on('click', function (event) {
+    console.group('create group');
+    var participants = $createGroupContactList.find('li.contact-item.selected')
+        .toArray()
+        .map(function (item) { return $(item).attr('data-user-email'); });
+    var groupName = $groupNameInput.val();
+    console.log('with name:', groupName);
+    console.log('with participants:', participants);
+    console.groupEnd();
+    QiscusSDK.core.createGroupRoom(groupName, participants);
+    return false;
+  });
+  var $createGroupBtn = $('#create-group-btn');
+  $createGroupBtn.on('click', function () {
+    $popOver.addClass('hidden');
+    $createGroupSidebar.removeClass('hidden');
+    $mainSidebar.addClass('hidden');
+    return false;
+  });
+  $createGroupNameSidebar.find('.navigation-btn')
+      .on('click', function () {
+        $createGroupNameSidebar.addClass('hidden');
+        $createGroupSidebar.removeClass('hidden');
+        return false;
+      });
+  $createGroupSidebar.find('.navigation-btn')
+      .on('click', function () {
+        $createGroupSidebar.addClass('hidden');
+        $mainSidebar.removeClass('hidden');
+        return false;
+      });
 });
