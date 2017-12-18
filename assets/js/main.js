@@ -55,10 +55,15 @@ $(function () {
         $('#empty-chat-wrapper').addClass('hidden');
       },
       chatRoomCreatedCallback: function (data) {
-        console.log('chatRoomCreated', data);
-        var room = createRoomDOM(data.room);
-        appSidebar.find('ul').prepend(room);
-        $('.app-sidebar.chat-stranger').addClass('hidden');
+        // check if room already exists on sidebar
+        var roomId = data.room.id;
+        var isExists = $('#room-' + roomId).length > 0;
+        if (!isExists) {
+          var room = createRoomDOM(data.room);
+          appSidebar.find('ul').prepend(room);
+        }
+        $chatStrangerSidebar.addClass('hidden');
+        $chatStrangerSidebar.find('input[type="text"]').val('');
         $('#empty-chat-wrapper').addClass('hidden');
       }
     }
