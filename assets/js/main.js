@@ -243,7 +243,7 @@ $(function () {
 
   // Load contact
   $.ajax({
-        url: 'http://dashboard-sample.herokuapp.com/api/contacts',
+        url: 'http://dashboard-sample.herokuapp.com/api/contacts?show_all=true',
         method: 'get'
       })
       .done(function (data) {
