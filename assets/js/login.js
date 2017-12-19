@@ -1,18 +1,19 @@
 /* globals jQuery, QiscusSDK */
 jQuery(function () {
-  var isLoggedIn = window.sessionStorage.getItem('sdk-sample-app---is-loggedin')
+  var isLoggedIn = window.sessionStorage.getItem('sdk-sample-app---is-loggedin');
   if (isLoggedIn && Boolean(isLoggedIn) === true) {
-    window.location.href = '/index.html'
+    window.location.href = '/index.html';
   }
   jQuery('form#login-form').on('submit', function (event) {
-    event.preventDefault()
-    var userId = event.target['userId'].value
-    var secret = event.target['password'].value
+    event.preventDefault();
+    var userId = event.target['userId'].value;
+    var secret = event.target['password'].value;
+    var userAvatar = getAvatarURL(userId);
     QiscusSDK.core.init({
       AppId: window.SDK_APP_ID,
       options: {
         loginSuccessCallback: function (data) {
-          console.log('loginSuccessCallback', data)
+          console.log('loginSuccessCallback', data);
           // Warning!!
           // Here we store user email (userId) and secret into sessionStorage
           // please note not to store user secret data into browser
@@ -26,18 +27,24 @@ jQuery(function () {
           var userData = {
             userId: userId,
             secret: secret,
-            username: userId
-          }
-          window.sessionStorage.setItem('sdk-sample-app---is-loggedin', true)
-          window.sessionStorage.setItem('sdk-sample-app---user-data', JSON.stringify(userData))
-          window.location.href = '/index.html'
+            username: userId,
+            avatarURL: userAvatar
+          };
+          window.sessionStorage.setItem('sdk-sample-app---is-loggedin', true);
+          window.sessionStorage.setItem('sdk-sample-app---user-data', JSON.stringify(userData));
+          window.location.href = '/index.html';
         }
       }
-    })
+    });
+    function getAvatarURL (userId) {
+      var userIdHash = md5(userId);
+      return 'https://www.gravatar.com/avatar/' + userIdHash + '?d=retro';
+    }
     QiscusSDK.core.setUser(
       /* userId */ userId,
       /* password */ secret,
-      /* displayName */ userId
-    )
-  })
-})
+      /* displayName */ userId,
+        /* avatarURL */ userAvatar
+    );
+  });
+});
