@@ -8,6 +8,7 @@ jQuery(function () {
     event.preventDefault();
     var userId = event.target['userId'].value;
     var secret = event.target['password'].value;
+    var displayName = event.target['displayName'].value || userId;
     var userAvatar = getAvatarURL(userId);
     QiscusSDK.core.init({
       AppId: window.SDK_APP_ID,
@@ -27,7 +28,7 @@ jQuery(function () {
           var userData = {
             userId: userId,
             secret: secret,
-            username: userId,
+            username: displayName,
             avatarURL: userAvatar
           };
           window.sessionStorage.setItem('sdk-sample-app---is-loggedin', true);
@@ -45,7 +46,7 @@ jQuery(function () {
     QiscusSDK.core.setUser(
         /* userId */ userId,
         /* password */ secret,
-        /* displayName */ userId,
+        /* displayName */ displayName,
         /* avatarURL */ userAvatar
     );
   });
