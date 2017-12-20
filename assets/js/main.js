@@ -98,7 +98,11 @@ $(function () {
       $('.app-sidebar__lists li').removeClass('active');
       $this.addClass('active');
       toggleConversationActiveClass();
-      QiscusSDK.core.UI.chatGroup($this.data('id'));
+      if($this.data('room-type') == 'single'){
+        QiscusSDK.core.UI.chatTarget($this.data('room-name'));
+      } else {
+        QiscusSDK.core.UI.chatGroup($this.data('id'));
+      }
       $('#empty-chat-wrapper').addClass('hidden');
     })
   }
@@ -119,6 +123,7 @@ $(function () {
     li.setAttribute('data-id', room.id);
     li.setAttribute('id', 'room-' + room.id);
     li.setAttribute('data-room-name', room.name);
+    li.setAttribute('data-room-type', room.room_type);
     var detail = document.createElement('div');
     var name = document.createElement('strong');
     name.innerText = room.name;
