@@ -36,14 +36,16 @@ jQuery(function () {
         }
       }
     });
-    function getAvatarURL (userId) {
+
+    function getAvatarURL(userId) {
       var userIdHash = md5(userId);
       return 'https://www.gravatar.com/avatar/' + userIdHash + '?d=retro';
     }
+
     QiscusSDK.core.setUser(
-      /* userId */ userId,
-      /* password */ secret,
-      /* displayName */ userId,
+        /* userId */ userId,
+        /* password */ secret,
+        /* displayName */ userId,
         /* avatarURL */ userAvatar
     );
   });

@@ -16,6 +16,7 @@ $(function () {
     userData = JSON.parse(userData);
   }
   attachClickListenerOnConversation();
+  loadContactList();
   // let's setup options for our widget
   QiscusSDK.core.init({
     AppId: window.SDK_APP_ID,
@@ -143,7 +144,7 @@ $(function () {
               return item;
             })
             .filter(function (item) {
-              var contactName = $(item).attr('data-user-email');
+              var contactName = $(item).attr('data-user-name');
               return contactName.toLowerCase().indexOf(value) < 0;
             })
             .forEach(function (item) {
@@ -242,21 +243,22 @@ $(function () {
   });
 
   // Load contact
-  $.ajax({
-        url: 'http://dashboard-sample.herokuapp.com/api/contacts?show_all=true',
-        method: 'get'
-      })
-      .done(function (data) {
-        var contacts = data.results.users
-            .filter(function (user) {
-              return user.email !== QiscusSDK.core.email;
-            });
-        var contactDOM = contacts.map(createContactDOM);
-        $('ul.contact-list').empty().append(contactDOM);
-      })
-      .fail(function (error) {
-        console.error('error when fetching contact list', error);
-      });
+  function loadContactList () {
+    var url = window.SDK_DASHBOARD_URL + '/api/contacts?show_all=true';
+    $.ajax({
+      url: url,
+      method: 'get'
+    }).done(function (data) {
+      var contacts = data.results.users
+          .filter(function (user) {
+            return user.email !== QiscusSDK.core.email;
+          });
+      var contactDOM = contacts.map(createContactDOM);
+      $('ul.contact-list').empty().append(contactDOM);
+    }).fail(function (error) {
+      console.error('error when fetching contact list', error);
+    })
+  }
 
   function createContactDOM(contactData) {
     var container = document.createElement('li');
